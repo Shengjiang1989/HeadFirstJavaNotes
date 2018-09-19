@@ -161,3 +161,19 @@ setTimeout(Handler, delayTime);
 Code written to handle events is different from code that executes top to bottom and then completes. 
 Event handlers can run at any time and in any order: they are asynchronous.
 */
+
+/** function declaration and function expression
+
+*/
+
+/** functions are values too, function are fisrt class value
+
+*/
+
+/** pass value(function) to a function
+
+*/
+
+/** return the value from a function
+
+*/
