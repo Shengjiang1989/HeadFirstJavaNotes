@@ -163,17 +163,141 @@ Event handlers can run at any time and in any order: they are asynchronous.
 */
 
 /** function declaration and function expression
-
+When the browser parses your page—before it evaluates any code—it’s
+looking for function declarations. When the browser finds one, it creates
+a function and assigns the resulting reference to a variable with the same
+name as the function.
 */
 
 /** functions are values too, function are fisrt class value
-
+first class value are value can do the following:
+1. assign the value to a variable (or store it in a data structure like array or object)
+2. pass the value to a function
+3. return the value from a function
 */
 
 /** pass value(function) to a function
-
 */
+//if we have a list of passengers and we want to implement checkPaid checkNoFly printPassengers, we could do thing like this:
+var passengers = [{ name: "Jane Doloop", paid: true },
+                  { name: "Dr. Evel", paid: true },
+                  { name: "Sue Property", paid: false },
+                  { name: "John Funcall", paid: true }];
 
-/** return the value from a function
+function checkPaid(passengers) {
+  for (var i = 0; i < passengers.length; i++) {
+    if (!passengers[i].paid) {
+      return false;
+    }
+  }
+  return true;
+}
 
+function checkNoFly(passengers) {
+  for (var i = 0; i < passengers.length; i++) {
+    if (onNoFlyList(passengers[i].name)) {
+      return false;
+    }
+  }
+  return true;
+}
+
+function printPassengers(passengers) {
+  for (var i = 0; i < passengers.length; i++) {
+    console.log(passengers[i].name);
+    return false;
+  }
+  return true;
+}
+
+//but actually there is a lot of duplicated code
+function iteratePassengers(passengers, passCheck) {
+  for (var i = 0; i < passengers.length; i++) {
+    if (!passCheck(passengers[i])) {
+      return false;
+    }
+  }
+  return true;
+}
+
+function hasName(passenger) {
+  return !!passenger.name;
+}
+
+function hasPaid(passenger) {
+  return passenger.paid;
+}
+
+iteratePassengers(passengers, hasName);
+iteratePassengers(passengers, hasPaid);
+
+
+/** return value(function) from a function
 */
+function serveCustomer(passenger) {
+  if (passenger.ticket === "firstclass") {
+    alert("Would you like a cocktail or wine?");
+  } else {
+    alert("Your choice is cola or water.");
+  }
+}
+
+serveCustomer(pas1);
+serveCustomer(pas1);
+
+//what is checking ticket is a heavy webservice? every time we need to spend a long time to check the ticket
+function serveCustomer(passenger) {
+  if (ticketCheckingService.isFirstClass(passenger.ticket)) {
+    alert("Would you like a cocktail or wine?");
+  } else if (ticketCheckingService.isBusiness(passenger.ticket)) {
+    alert("Would you like a bottle of juice?");
+  } else {
+    alert("Your choice is cola or water.");
+  }
+}
+
+//we could return function
+function serveCustomer(passenger) {
+  if (ticketCheckingService.isFirstClass(passenger.ticket)) {
+    alert("Would you like a cocktail or wine?");
+  } else if (ticketCheckingService.isBusiness(passenger.ticket)) {
+    alert("Would you like a bottle of juice?");
+  } else {
+    alert("Your choice is cola or water.");
+  }
+}
+
+function serveCustomer(passenger) {
+  if (ticketCheckingService.isFirstClass(passenger.ticket)) {
+    return function() {
+      alert("Would you like a cocktail or wine?");
+    }
+  } else if (ticketCheckingService.isBusiness(passenger.ticket)) {
+    return function() {
+      alert("Would you like a bottle of juice?");
+    }
+  } else {
+    return function() {
+      alert("Your choice is cola or water.");
+    }
+  }
+}
+
+var serveCustomerWithTicketChecked = serveCustomer(pas1);
+serveCustomerWithTicketChecked();
+serveCustomerWithTicketChecked();
+
+/** Sort
+*/
+var numberArray = [1, 2, 3, 4, 5, 6];
+numberArray.sort(comparator);
+
+function comparator(obj1, obj2) {
+  if (obj1 < obj2)
+    return -1;  //smaller number has precedence
+  else if (obj1 === obj2)
+    return 0;
+  else
+    return 1;
+}
+
