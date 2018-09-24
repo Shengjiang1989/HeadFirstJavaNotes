@@ -176,6 +176,17 @@ first class value are value can do the following:
 3. return the value from a function
 */
 
+/** function in object
+Because function is a value, we could put in the value part of a object
+*/
+var john = {
+  name: 'shengjiang';
+  birthYear = 1989;
+  calculateAge: function() {
+    return 2018 - this.birthYear;
+  };
+}
+
 /** pass value(function) to a function
 */
 //if we have a list of passengers and we want to implement checkPaid checkNoFly printPassengers, we could do thing like this:
