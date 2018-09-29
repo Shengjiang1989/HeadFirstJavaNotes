@@ -96,7 +96,7 @@ So, elements of a collection returned by getElementsByClassName will be modified
 */
 
 /*************************************
-* Chapter 9 - 13 advanced
+* Chapter 9 - 10 advanced
 *************************************/
 
 /** what is event handler
@@ -311,4 +311,14 @@ function comparator(obj1, obj2) {
   else
     return 1;
 }
+
+/*************************************
+* Chapter 11 Closure
+*************************************/
+/** anonymous function
+*/
+function handler() { alert("Yeah, that page loaded!"); }
+window.onload = handler;
+//directly assign function expression is called anonymous function
+window.onload = function() { alert("Yeah, that page loaded!"); }
 
