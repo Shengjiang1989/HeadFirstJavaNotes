@@ -322,3 +322,74 @@ window.onload = handler;
 //directly assign function expression is called anonymous function
 window.onload = function() { alert("Yeah, that page loaded!"); }
 
+/** Nested function also has hoisting
+
+if you define a nested function with a declaration,
+that nested function is defined everywhere within the body of
+the function. On the other hand, if you create a nested function
+using a function expression, then that nested function is defined only
+after the function expression is evaluated
+*/
+
+/** lexical scope
+Lexical just means you can determine the scope of a variable by reading the structure of the code, as opposed to waiting until the code runs to figure it out.
+*/
+//By lexical scope we mean that JavaScript’s rules for scoping are based purely on the structure of your code (not on some dynamic runtime properties). 
+//This means you can determine where a variable is defined by simply examining your code’s structure.
+
+var justAVar = "Oh, don't you worry about it, I'm GLOBAL";
+function whereAreYou() {
+  var justAVar = "Just an every day LOCAL";
+  function inner() {
+    return justAVar;
+  }
+  return inner;
+}
+
+var innerFunction = whereAreYou();
+var result = innerFunction();
+console.log(result);
+// in the following example, what is the output?     
+//when the function is invoked. We invoke inner after it’s returned, when the global version of justAVar is in scope 
+
+//With lexical scope what matters is the structure in which the function is defined, 
+//so the result has to be the value of the local variable, or ”Just an everyday LOCAL”.
+
+/** Closure
+*/
+function whereAreYou() {
+  var justAVar = "Just an every day LOCAL"; //We haven’t mentioned this before, but all local variables are stored in an environment.
+  function inner() {                        //This is the environment. It holds all the variables defined in the local scope.
+    return justAVar;  
+  }
+  return inner;   //when we return the function, we don’t just return the function; we return the function with the environment attached to it.
+}
+
+//Every function has an attached environment, which contains the local variables within its enclosing scope
+//Also remember that in JavaScript only functions introduce new scope.
+
+// A closure is a function together with a referencing environment.
+
+//a function typically has local variables in its code body (including any parameters it has), 
+//and it also might have variables that aren’t defined locally, which we call free variables.
+
+//when we have an environment that has a value for each of the free variables, we say that we’ve closed the function. 
+//And, when we take the function and the environment together, we say we have a closure.
+
+function makeCounter() {
+  var count = 0;
+  function counter() {
+    count = count + 1;
+    return count;
+  }
+  return counter;
+}
+
+//The closure contains the actual environment, not a copy
+function setTimer(doneMessage, n) {
+  setTimeout(function() {
+    alert(doneMessage);
+  }, n);
+  doneMessage = "OUCH!";
+}
+setTimer("Cookies are done!", 1000);
