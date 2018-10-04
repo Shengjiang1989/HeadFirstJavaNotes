@@ -393,3 +393,31 @@ function setTimer(doneMessage, n) {
   doneMessage = "OUCH!";
 }
 setTimer("Cookies are done!", 1000);
+
+/*************************************
+* Execution contexts 
+*************************************/
+//
+/*Execution context is like a box or container which store variables and in wich code is evaluated and executed.
+
+The default execution context is always the global context, global execution context is associated with the global object which is the windows object.
+
+Think execution context as an object! 
+
+How execution context is created?
+
+Only when a function is invoked, an new execution context is created, and there are two phases:
+1. Creation phase
+creation of the variable object:  !!!IMPORTANT(this will not gone even if the execution context is gone, it will stay in the memory in the stack)
+                                              (and that is why some variables(free variables) do not disappear when function ends)
+  store all the arguments passed in
+  hoisting
+    hoisting function declarations, pointing to the function
+    hoisting variable declaration, pointing to the undefined
+creation of the scope chain:
+  store the scope this function has
+determine value of 'this'
+  store the object who called this function, will not be assigned a value until this function is called
+2. execution phase
+the code of function that generated the current execution context is ran line by line
+
