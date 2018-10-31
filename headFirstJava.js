@@ -421,3 +421,47 @@ determine value of 'this'
 2. execution phase
 the code of function that generated the current execution context is ran line by line
 
+/*************************************
+* Chapter 12 - 13
+*************************************/
+function Dog(name, breed, weight) {
+  this.name = name;
+  this.breed = breed;
+  this.weight = weight;
+}
+
+var testDog = new Dog("dogName", "dogBreed", 50);
+
+//prototype
+Dog.prototype.species = "Canine";
+
+Dog.prototype.bark = function() {
+  if (this.weight > 25) {
+    console.log(this.name + " says Woof!");
+  } else {
+    console.log(this.name + " says Yip!");
+  }
+};
+
+Dog.prototype.run = function() {
+  console.log("Run!");
+};
+
+Dog.prototype.wag = function() {
+  console.log("Wag!");
+};
+
+function ShowDog(name, breed, weight, handler) {
+  this.name = name;
+  this.breed = breed;
+  this.weight = weight;
+  this.handler = handler;
+}
+
+ShowDog.prototype = new Dog();
+
+Showdog.prototype.league = "Webville";
+
+ShowDog.prototype.stack = function() {
+  console.log("Stack");
+};
